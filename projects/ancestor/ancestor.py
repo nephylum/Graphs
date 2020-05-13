@@ -21,7 +21,8 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        self.vertices[vertex_id] = set()
+        if vertex_id not in self.vertices:
+            self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
@@ -36,8 +37,9 @@ def earliest_ancestor(ancestors, starting_node):
     for i in ancestors:
         g.add_vertex(i[0])
         g.add_vertex(i[1])
-        #build edges #(reversed in lect)
+        #build edges
         g.add_edge(i[1], i[0])
+        #g.add_edge(i[1], i[0])
     q = Queue()
     q.enqueue([starting_node])
     max_path = 1
