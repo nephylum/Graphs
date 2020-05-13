@@ -30,18 +30,20 @@ class Graph:
         """
         if v1 in self.vertices and v2 in self.vertices:
             self.vertices[v1].add(v2)
-
+#using queue and graph find earliest ancestor
 def earliest_ancestor(ancestors, starting_node):
     #build graph for traversal
     g = Graph()
+    #populate graph with vertexes
     for i in ancestors:
         g.add_vertex(i[0])
         g.add_vertex(i[1])
         #build edges
         g.add_edge(i[1], i[0])
-        #g.add_edge(i[1], i[0])
+    #initialise a queue and put in starting node as list
     q = Queue()
     q.enqueue([starting_node])
+    #set max path and ea of -1 for return if no neighbors (parents)
     max_path = 1
     ea = -1
     while q.size() > 0:
