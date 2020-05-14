@@ -72,26 +72,8 @@ class SocialGraph:
 
         The key is the friend's ID and the value is the path.
         """
-
-        # q = Queue()
-        # q.enqueue(user_id)
-        # friends = set()
-        #
-        # while q.size() > 0:
-        #     #get user
-        #     user = q.dequeue()
-        #     #find friends, add to list if not in list already
-        #     to_add = self.friendships[user]
-        #     for i in to_add:
-        #         if i not in friends:
-        #             friends.add(i)
-        #             q.enqueue(i)
-
-        #find shortest path to each friend
-
+        #hold users as keys and their path as values for return
         visited = {}
-        paths = {}
-        #print('friends', friends)
 
         newq = Queue()
         newq.enqueue([user_id])
@@ -136,6 +118,6 @@ class SocialGraph:
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populate_graph(10, 2)
-    print(sg.friendships)
+    print("friendships\n",sg.friendships)
     connections = sg.get_all_social_paths(1)
-    print("connections:\n", connections)
+    print("\nconnections:\n", connections)
