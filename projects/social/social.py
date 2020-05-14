@@ -73,44 +73,41 @@ class SocialGraph:
         The key is the friend's ID and the value is the path.
         """
 
-        q = Queue()
-        q.enqueue(user_id)
-        friends = set()
-
-        while q.size() > 0:
-            #get user
-            user = q.dequeue()
-            #find friends, add to list if not in list already
-            to_add = self.friendships[user]
-            for i in to_add:
-                if i not in friends:
-                    friends.add(i)
-                    q.enqueue(i)
+        # q = Queue()
+        # q.enqueue(user_id)
+        # friends = set()
+        #
+        # while q.size() > 0:
+        #     #get user
+        #     user = q.dequeue()
+        #     #find friends, add to list if not in list already
+        #     to_add = self.friendships[user]
+        #     for i in to_add:
+        #         if i not in friends:
+        #             friends.add(i)
+        #             q.enqueue(i)
 
         #find shortest path to each friend
 
-        visited = set()
+        visited = {}
         paths = {}
-        for i in friends:
-            newq = Queue()
-            newq.enqueue([i])
+        #print('friends', friends)
 
-            min_path = 100
+        newq = Queue()
+        newq.enqueue([user_id])
 
-            while newq.size() > 0:
-                path = newq.dequeue()
-                v = path[-1]
-                if v not in visited:
-                    visited.add(v)
-                    if len(path) < min_path:
-                        paths[v] = path
-                        min_path = len(path)
-                    for next in self.friendships[i]:
-                        copy = list(path)
-                        copy.append(next)
-                        newq.enqueue(copy)
+        while newq.size() > 0:
+            path = newq.dequeue()
+            v = path[-1]
+            if v not in visited:
+                visited[v] = path
 
-        return paths
+                for next in self.friendships[v]:
+                    copy = list(path)
+                    copy.append(next)
+                    newq.enqueue(copy)
+
+        return visited
 
     def populate_graph(self, num_users, avg_friendships):
          # Reset graph
