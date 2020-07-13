@@ -1,4 +1,3 @@
-
 # Note: This Queue class is sub-optimal. Why?
 class Queue():
     def __init__(self):
@@ -25,4 +24,3 @@ class Stack():
             return None
     def size(self):
         return len(self.stack)
-

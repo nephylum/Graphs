@@ -37,13 +37,17 @@ class Graph:
         """
         q = Queue()
         q.enqueue(starting_vertex)
+        #create an empty set to know where we've been
         visited = set()
         while q.size() > 0:
+            #take the latest step in the path
             v = q.dequeue()
             if v not in visited:
                 print(v)
+                #add to previously visited to prevent retreading
                 visited.add(v)
                 for next_vert in self.get_neighbors(v):
+                    #add neighbors to queue for traversal
                     q.enqueue(next_vert)
 
 
@@ -54,6 +58,7 @@ class Graph:
         """
         s = Stack()
         s.push(starting_vertex)
+        #visited holds history of traversed verts
         visited = set()
         while s.size() > 0:
             v = s.pop()
@@ -86,11 +91,14 @@ class Graph:
         breath-first order.
         """
         q = Queue()
+        #set up paths
         path = [starting_vertex]
+        #add paths to queue
         q.enqueue(path)
         visited = set()
         while q.size() > 0:
             path = q.dequeue()
+            #take the latest step in this path
             v = path[-1]
             if v not in visited:
                 visited.add(v)
@@ -109,24 +117,7 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        # s = Stack()
-        # path = [starting_vertex]
-        # paths_out = []
-        # s.push(path)
-        # #visited = set()
-        # while s.size() > 0:
-        #     path = s.pop()
-        #     v = path[-1]
-        #     #if v not in visited:
-        #     #    visited.add(v)
-        #     if v == destination_vertex:
-        #         paths_out.append(path)
-        #
-        #     for next_vert in self.get_neighbors(v):
-        #         newpath = path.copy()
-        #         newpath.append(next_vert)
-        #         s.push(newpath)
-        # return paths
+
         s = Stack()
         path = [starting_vertex]
         s.push(path)
