@@ -81,6 +81,7 @@ class SocialGraph:
         while newq.size() > 0:
             path = newq.dequeue()
             v = path[-1]
+
             if v not in visited:
                 visited[v] = path
 
@@ -90,6 +91,30 @@ class SocialGraph:
                     newq.enqueue(copy)
 
         return visited
+    def populate_graph_linear(self, num_users, avg_friendships):
+        #reset graph
+        self.last_id = 0
+        self.users = {}
+        self.friendships = {}
+
+        #Add users
+        for i in range(num_users):
+            self.add_user(f"User {i+1}")
+
+        target_friendships = num_users * avg_friendships
+
+        total_friendships = 0
+        collisions = 0
+
+        while total_friendships < target_friendships:
+            #keep trying to add friendships
+            user_id = random.randint(1, self.last_id)
+            friend_id = random.randint(1, self.last_id)
+
+            if self.add_friendship(user_id, friend_id):
+                total_friendships += 2
+            else:
+                collisions += 1
 
     def populate_graph(self, num_users, avg_friendships):
          # Reset graph
@@ -121,3 +146,4 @@ if __name__ == '__main__':
     print("friendships\n",sg.friendships)
     connections = sg.get_all_social_paths(1)
     print("\nconnections:\n", connections)
+    sg.populate_graph_linear(10,2)

@@ -109,6 +109,24 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
+        # s = Stack()
+        # path = [starting_vertex]
+        # paths_out = []
+        # s.push(path)
+        # #visited = set()
+        # while s.size() > 0:
+        #     path = s.pop()
+        #     v = path[-1]
+        #     #if v not in visited:
+        #     #    visited.add(v)
+        #     if v == destination_vertex:
+        #         paths_out.append(path)
+        #
+        #     for next_vert in self.get_neighbors(v):
+        #         newpath = path.copy()
+        #         newpath.append(next_vert)
+        #         s.push(newpath)
+        # return paths
         s = Stack()
         path = [starting_vertex]
         s.push(path)
@@ -122,7 +140,7 @@ class Graph:
                     return path
 
                 for next_vert in self.get_neighbors(v):
-                    newpath = path.copy()
+                    newpath = list(path)
                     newpath.append(next_vert)
                     s.push(newpath)
 
