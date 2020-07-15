@@ -73,24 +73,32 @@ class SocialGraph:
         The key is the friend's ID and the value is the path.
         """
         #hold users as keys and their path as values for return
+
+        #know which nodes have been visited
         visited = {}
 
         newq = Queue()
+        #start traversal at user_id
         newq.enqueue([user_id])
 
         while newq.size() > 0:
+            #try a path in the queue
             path = newq.dequeue()
+            #check the latest step
             v = path[-1]
 
             if v not in visited:
+                #add to visited to prevent duplicates
                 visited[v] = path
 
+                #add neighbors as new paths 
                 for next in self.friendships[v]:
                     copy = list(path)
                     copy.append(next)
                     newq.enqueue(copy)
 
         return visited
+
     def populate_graph_linear(self, num_users, avg_friendships):
         #reset graph
         self.last_id = 0
@@ -146,4 +154,4 @@ if __name__ == '__main__':
     print("friendships\n",sg.friendships)
     connections = sg.get_all_social_paths(1)
     print("\nconnections:\n", connections)
-    sg.populate_graph_linear(10,2)
+    #sg.populate_graph_linear(10,2)
