@@ -91,7 +91,7 @@ class SocialGraph:
                 #add to visited to prevent duplicates
                 visited[v] = path
 
-                #add neighbors as new paths 
+                #add neighbors as new paths
                 for next in self.friendships[v]:
                     copy = list(path)
                     copy.append(next)
@@ -99,30 +99,55 @@ class SocialGraph:
 
         return visited
 
+    # def populate_graph_linear(self, num_users, avg_friendships):
+    #     #reset graph
+    #     self.last_id = 0
+    #     self.users = {}
+    #     self.friendships = {}
+    #
+    #     #Add users
+    #     for i in range(num_users):
+    #         self.add_user(f"User {i+1}")
+    #
+    #     target_friendships = num_users * avg_friendships
+    #
+    #     total_friendships = 0
+    #     collisions = 0
+    #
+    #     while total_friendships < target_friendships:
+    #         #keep trying to add friendships
+    #         user_id = random.randint(1, self.last_id)
+    #         friend_id = random.randint(1, self.last_id)
+    #
+    #         if self.add_friendship(user_id, friend_id):
+    #             total_friendships += 2
+    #         else:
+    #             collisions += 1
+
     def populate_graph_linear(self, num_users, avg_friendships):
-        #reset graph
+        # Reset graph
         self.last_id = 0
         self.users = {}
         self.friendships = {}
 
-        #Add users
-        for i in range(num_users):
-            self.add_user(f"User {i+1}")
+        # Add users
+        ## use num_users
+        for user in range(num_users):
+            self.add_user(user)
 
-        target_friendships = num_users * avg_friendships
-
-        total_friendships = 0
-        collisions = 0
-
-        while total_friendships < target_friendships:
-            #keep trying to add friendships
-            user_id = random.randint(1, self.last_id)
-            friend_id = random.randint(1, self.last_id)
-
-            if self.add_friendship(user_id, friend_id):
-                total_friendships += 2
-            else:
-                collisions += 1
+        # linear way to add the number of friendships we need?
+        target_number_friendships = num_users * avg_friendships
+        friendships_created = 0
+        ## as long as we haven't made all the friendships we need
+        while friendships_created < target_number_friendships:
+        ## pick 2 random numbers between 1 and the last id
+            friend_one = random.randint(1, self.last_id)
+            friend_two = random.randint(1, self.last_id)
+        ## try to create that friendship
+            friendship_was_made = self.add_friendship(friend_one, friend_two)
+        ### if we can, increment friendships by 2
+            if friendship_was_made:
+                friendships_created += 2
 
     def populate_graph(self, num_users, avg_friendships):
          # Reset graph
@@ -154,4 +179,4 @@ if __name__ == '__main__':
     print("friendships\n",sg.friendships)
     connections = sg.get_all_social_paths(1)
     print("\nconnections:\n", connections)
-    #sg.populate_graph_linear(10,2)
+    sg.populate_graph_linear(10,2)
