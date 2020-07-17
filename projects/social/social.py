@@ -152,6 +152,7 @@ class SocialGraph:
     #         if friendship_was_made:
     #            friendships_created += 2
 
+
     #Still not working, stays in infinite loop
     def populate_graph(self, num_users, avg_friendships):
          # Reset graph
@@ -183,4 +184,4 @@ if __name__ == '__main__':
     print("friendships\n",sg.friendships)
     connections = sg.get_all_social_paths(1)
     print("\nconnections:\n", connections)
-    sg.populate_graph_linear(10,2)
+    #sg.populate_graph_linear(10,2)
